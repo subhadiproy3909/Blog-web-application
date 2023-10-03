@@ -1,0 +1,122 @@
+<!-- Scrollable modal -->
+<div class="abc" style="display: none; overflow: auto;">
+    <div class="close" style="float: right; font-size: 30px; cursor: pointer; color: white;">&times;</div>
+    <h3 class="mt-5 text-light">Update Blog</h3>
+    <div class="form m-3 color-white">
+        <form action="/admin/Dashboard/Blogs?_method=PUT" class="formContent" method="post">
+            <div class="mb-3">
+                <input type="hidden" class="form-control pt-2 pb-2" id="id" name="id" placeholder="Enter a title"
+                    value="">
+            </div>
+            <div class="mb-3">
+                <label for="title" class="form-label text-light">Title</label>
+                <input type="text" class="form-control pt-2 pb-2" id="title" name="title" placeholder="Enter a title"
+                    value="">
+            </div>
+
+            <div class="mb-3">
+                <label for="body" class="form-label text-light">Content</label>
+                <textarea class="form-control" id="body" cols="30" rows="10" name="content" value=""></textarea>
+            </div>
+
+            <input type="submit" class="btn btn-success" value="Update" name="updateBlog">
+        </form>
+    </div>
+</div>
+
+<div class="createDiv">
+    <div class="caption">
+        <p>Create new blog : </p>
+    </div>
+
+    <div>
+        <a href="/admin/Dashboard/Blogs/createBlog" class="new" target="_blank">New Blog</a>
+    </div>
+</div>
+
+
+<section class="Content">
+    <!-- <div class="popUp">
+        <span style="float: right;">&times;</span>
+    </div> -->
+    <% findData.forEach(post=> { %>
+        <ul>
+            <li>
+                <div class="blogOption">
+                    <b>
+                        <%= post.title %>
+                    </b>
+                    <b>
+                        <%= post.createdAt.toDateString() %>
+                    </b>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-success"
+                        onclick="f('<%- post._id %>', '<%- post.title %>', '<%- post.body %>')">
+                        Edit
+                    </button>
+                    <!-- <a class="btn btn-success" onclick="f('<%- post.title %>', '<%- post.body %>')">Edit</a> -->
+                    <a class="btn btn-danger">Delete</a>
+                </div>
+            </li>
+        </ul>
+        <% }) %>
+
+            <ul>
+                <li>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae
+                    assumenda?
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae
+                    assumenda?
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae
+                    assumenda?
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae
+                    assumenda?
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae
+                    assumenda?
+                </li>
+            </ul>
+</section>
+
+<script>
+    function f(id, title, body) {
+        const popUp = document.querySelector('.popUp');
+
+        const blogId = document.querySelector('#id');
+        const blogTitle = document.querySelector('#title');
+        const blogBody = document.querySelector('#body');
+        const formContent = document.querySelector('.formContent');
+        const close = document.querySelector('.close');
+        const content = document.querySelector('.Content');
+
+
+        blogId.value = id;
+        blogTitle.value = title
+        blogBody.value = body;
+        // formContent.action = `/admin/Dashboard/Blogs:${title}`;
+        // console.log(blogid);
+        // console.log(blogBody);
+
+        close.parentElement.style.display = 'block'
+        close.addEventListener('click', () => {
+            close.parentElement.style.display = 'none';
+        })
+    }
+
+</script>

@@ -1,0 +1,104 @@
+.notes-grid {
+    margin-top: 1.5rem;
+    display: grid;
+    margin: 1.5rem;
+    gap: 1.5rem;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+
+.note {
+    background-color: aqua;
+    font-size: 20px;
+    box-shadow: 3px 4px 10px rgb(182, 131, 230);
+    padding: 1.4rem;
+    height: 300px;
+}
+
+
+
+.reviews {
+    width: 50%;
+    margin: 0 25%;
+    margin-top: 1%;
+}
+
+.reviews form {
+    background-color: aqua;
+    width: 100%;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+}
+
+.reviews form .input-item,
+.submitReview {
+    margin: .7rem .4rem;
+}
+
+.reviews form input[type=text],
+input[type=email],
+textarea {
+    width: 100%;
+    padding: .9rem;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    font-size: 15px;
+}
+
+textarea {
+    resize: none;
+}
+
+.reviews form input[type=submit] {
+    padding: .6rem;
+    border: none;
+    border-radius: 5px;
+    background-color: rgb(7, 109, 50);
+    color: white;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+@media (max-width: 50em) {
+    .notes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 35em) {
+    .notes-grid {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .reviews {
+        width: 90%;
+        margin: 0 1.2rem;
+        margin-top: 3rem;
+    }
+
+    .reviews form {
+        padding: 1rem 1.2rem;
+    }
+
+    .reviews form .input-item,
+    .submitReview {
+        margin: .9rem 0rem;
+    }
+
+    .reviews form p{
+        margin-bottom: .3rem;
+    }
+
+    .reviews form input[type=text],
+    input[type=email],
+    textarea {
+        font-size: 13px;
+    }
+    .reviews form input[type=submit] {
+        font-size: 14px;
+    }
+
+}

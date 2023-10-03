@@ -1,0 +1,220 @@
+
+* {
+    box-sizing: border-box;
+    font-family:sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+html{
+    height: 100%;
+}
+
+body {
+    
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+}
+
+.Container {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* navbar styling. */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 4rem;
+    background-color: rgb(15, 15, 15);
+    padding: 0rem .5rem;
+    box-shadow: -1px 3px 5px rgb(114, 108, 108);
+}
+
+.navbar .b_logo h3{
+    color: #ffffffff;
+    font-size: 2.5rem;
+    line-height: 4rem;
+
+    background:linear-gradient(
+        #fd004c 16.7%,
+        #fe9000 16.7%,
+        #fe9000 33.4%,
+        #fff020 33.4%,
+        #fff020 50.1%,
+        #3edf4b 50.1%,
+        #3edf4b 66.8%,
+        #3363ff 66.8%,
+        #3363ff 83.5%,
+        #b102b7 83.5%
+        );
+
+        -webkit-text-stroke: 0.04em #ffffffff;
+        -webkit-background-clip:text;
+                background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: rainbow 50s linear  infinite;
+}
+
+@keyframes rainbow{
+    100%{
+        background-position: 0 30em;
+    }
+}
+
+.navbar .navbar_item ul {
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    line-height: 4rem;
+}
+
+.navbar_item ul li {
+    padding: 0rem .9rem;
+}
+
+.navbar_item ul li a {
+    text-decoration: none;
+    color: rgb(165, 112, 233);
+    font-size: 17px;
+} 
+
+/* navbar collapse */
+.collapse {
+    display: none;
+}
+
+.slider {
+    display: none;
+}
+
+.userCredit{
+    line-height: 4rem;
+}
+
+.userCredit input {
+    margin-right: .5rem;
+    padding: .6rem 1rem;
+    background-color: rgb(145, 75, 236);
+    color: #ffffffff;
+    font-size: 15px;
+    font-weight: 700;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.mainContent{
+    margin-top: 4.1rem;
+}
+
+.homecontainer{
+    /* margin-top: 4.1rem; */
+    display: flex;
+    height: 100%;
+}
+
+.homecontainer .description{
+    margin-top: 1rem;
+    padding: 0rem 1.5rem;
+}
+
+.homecontainer .description h1{
+    font-size: 45px;
+}
+
+.homecontainer .description p{
+    margin-top: 2rem;
+    font-size: 17px;
+}
+
+img{
+    height: 400px;
+    width: 600px;
+}
+
+
+/* footer styling */
+
+.footer {
+    background-color: wheat;
+    padding: 1rem;
+    text-align: center;
+    font-weight: bolder;
+    margin-top: auto;
+}
+
+@media only screen and (max-width: 800px) {
+    .webImage{
+        display: none;
+    }
+
+    .navbar_item {
+        display: none;
+
+    }
+
+    .navbar .b_logo h3 {
+        color: blanchedalmond;
+        font-size: 1.2rem;
+    }
+
+    .collapse {
+        display: flex;
+        flex-direction: row;
+        color: blanchedalmond;
+        font-size: 1.2rem;
+        line-height: 4rem;
+        white-space: nowrap;
+    }
+
+    .collapse div{
+        margin-top: .3rem;
+        padding-left: .2rem;
+        font-size: 15px;
+    }
+
+    .slider {
+        display: none;
+    }
+
+    .navbar_item_collapse {
+        position: fixed;
+        top: 4.1rem;
+        width: 100%;
+        display: block;
+        list-style-type: none;
+        background-color: rgba(165, 110, 236, 0.795);
+        text-align: center;
+
+        padding: 2rem 0rem;
+    }
+
+    .navbar_item_collapse ul li {
+        padding: .9rem 0rem;
+
+    }
+
+    .navbar_item_collapse ul li a {
+        text-decoration: none;
+        color: rgb(248, 231, 231);
+        font-size: 20px;
+    }
+
+    .blogContent{
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
+    }
+
+    .blogContent ul{
+        width: 100%;
+    }
+}

@@ -1,0 +1,27 @@
+
+<div class="blogContent">
+    <% data.forEach(post=> { %>
+    
+    
+    
+        <ul>
+            <p>
+                Released date: <%= post.updatedAt.toDateString() %>
+            </p>
+            <h1>
+                <a href="">
+                    <%= post.title %>
+                </a>
+            </h1>
+            <article>
+                <%= post.body %>
+            </article>
+    
+            <div>
+                <a href="#">Read More>></a>
+            </div>
+        </ul>
+    
+    <% }) %>
+
+</div>

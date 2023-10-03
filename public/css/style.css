@@ -1,0 +1,60 @@
+
+
+
+
+
+/* blog content styling */
+
+
+.blogContent {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    margin-top: .7rem;
+    margin-left: 2rem;
+    height: 100%;
+}
+
+.blogContent ul {
+    background-color: whitesmoke;
+    height: auto;
+    width: 55%;
+    margin: 1rem 0rem;
+    box-shadow: 1px 5px 10px rgb(199, 197, 197);
+
+    padding: 2rem 2.5rem;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.blogContent ul p {
+    color: rgb(197, 194, 189);
+    margin-bottom: .9rem;
+}
+
+.blogContent ul h1 {
+    color: black;
+    margin: .5rem 0rem;
+}
+
+.blogContent ul h1 a {
+    text-decoration: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.blogContent ul h1 a:hover {
+    color: black;
+}
+
+.blogContent ul div a {
+    font-family: blog'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-decoration: none;
+    color: rgb(14, 65, 233);
+}
+
+
+
+
+
+
+

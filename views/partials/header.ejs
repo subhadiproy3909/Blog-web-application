@@ -1,0 +1,62 @@
+<nav class="navbar">
+
+    <div class="b_logo">
+        <h3>Achieve's Institute</h3>
+    </div>
+    
+    <div class="collapse">
+       <p>Menu</p>
+       <div>
+        <i class="fa-sharp fa-solid fa-angle-down"></i>
+       </div>
+    </div>
+
+    <div class="navbar_item">
+        <ul>
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="/blog">Blog</a>
+            </li>
+            <li>
+                <a href="/notes">Notes</a>
+            </li>
+            <li>
+                <a href="/reviews">Reviews</a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="userCredit">
+        <input type="submit" class="login" name="login" value="Login">
+    </div>
+</nav>
+
+<div class="slider">
+    <ul>
+        <li>
+            <a href="/">Home</a>
+        </li>
+        <li>
+            <a href="/blog">Blog</a>
+        </li>
+        <li>
+            <a href="/notes">Notes</a>
+        </li>
+        <li>
+            <a href="/reviews">Reviews</a>
+        </li>
+    </ul>
+</div>
+
+
+<script>
+    const collapse = document.querySelector('.collapse');
+    const slider = document.querySelector('.slider')
+    
+    collapse.addEventListener('click', () =>{
+        slider.classList.toggle('navbar_item_collapse');
+    })
+</script>

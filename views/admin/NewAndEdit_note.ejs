@@ -1,0 +1,19 @@
+<div class="admin-title">
+    <h2>Add New Note</h2>
+</div>
+
+<div class="form m-3">
+    <form action="/admin/Dashboard/Notes/createNote" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control pt-2 pb-2" id="title" name="title" placeholder="Enter a title">
+        </div>
+
+        <div class="mb-3">
+            <label for="body" class="form-label">Content</label>
+            <input type="file" class="form-control" id="body" name="note_file">
+        </div>
+
+        <input type="submit" class="btn btn-success" value="Save" name="addBlog">
+    </form>
+</div>

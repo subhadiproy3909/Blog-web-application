@@ -1,0 +1,158 @@
+<div class="createDiv">
+    <div class="caption">
+        <p>Create new blog : </p>
+    </div>
+    <div>
+        <a href="/admin/Dashboard/Notes/createNote" class="new" target="_blank">New Note</a>
+    </div>
+</div>
+
+
+<section class="Content">
+
+    <% findData.forEach(post=> { %>
+        <ul>
+            <li>
+                <div class="blogOption">
+                    <b>
+                        <%= post.title %>
+                    </b>
+                    <b>
+                        <%= post.createdAt.toDateString() %>
+                    </b>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-success"
+                        onclick="f('<%- post._id %>', '<%- post.title %>', '<%- post.body %>')">
+                        Edit
+                    </button>
+                    <!-- <a class="btn btn-success" onclick="f('<%- post.title %>', '<%- post.body %>')">Edit</a> -->
+                    <a class="btn btn-danger">Delete</a>
+                </div>
+            </li>
+        </ul>
+        <% }) %>
+
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+    <ul>
+        <li>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto quidem ab iure nobis recusandae assumenda?
+        </li>
+    </ul>
+</section>
+
+<script>
+    function f(title, body) {
+        alert(`${title}
+${body}`);
+    }
+</script>
