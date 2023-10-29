@@ -9,16 +9,16 @@
                 Released date: <%= post.updatedAt.toDateString() %>
             </p>
             <h1>
-                <a href="">
+                <a href="/blog/<%= post.title %>" target="_blank">
                     <%= post.title %>
                 </a>
             </h1>
             <article>
-                <%= post.body %>
+                <%= post.description.slice(0, 249) %>...
             </article>
     
-            <div>
-                <a href="#">Read More>></a>
+            <div style="margin-top: 1rem; margin-left: auto;">
+                <a href="/blog/<%= post.title %>" target="_blank">Read More>></a>
             </div>
         </ul>
     

@@ -7,6 +7,10 @@ const noteSchema = new Schema({
         type: String,
         required: true
     },
+    note_image: {
+        type: String,
+        required: true,
+    },
     note_file: {
         type: String,
         required: true

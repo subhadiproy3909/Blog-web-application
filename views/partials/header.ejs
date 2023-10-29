@@ -1,14 +1,16 @@
+<!-- <script type="module" src="./js/header.js" defer></script> -->
+
 <nav class="navbar">
 
     <div class="b_logo">
         <h3>Achieve's Institute</h3>
     </div>
-    
+
     <div class="collapse">
-       <p>Menu</p>
-       <div>
-        <i class="fa-sharp fa-solid fa-angle-down"></i>
-       </div>
+        <p>Menu</p>
+        <div>
+            <i class="fa-sharp fa-solid fa-angle-down"></i>
+        </div>
     </div>
 
     <div class="navbar_item">
@@ -22,9 +24,9 @@
             <li>
                 <a href="/notes">Notes</a>
             </li>
-            <li>
+            <!-- <li>
                 <a href="/reviews">Reviews</a>
-            </li>
+            </li> -->
         </ul>
     </div>
 
@@ -32,7 +34,56 @@
     <div class="userCredit">
         <input type="submit" class="login" name="login" value="Login">
     </div>
+
 </nav>
+
+<div id="signup_login">
+    <div id="close">&#x2715;</div>
+
+    <div id="action_btn">
+        <button id="action_login">Login</button>
+        <button id="action_signup">Signup</button>
+    </div>
+    <div id="form_toggle">
+        <section id="login_side" class="form">
+            <form action="">
+                <div class="input-box">
+                    <p>Email ID </p>
+                    <input type="email" class="input-item" id="log_email" required>
+                </div>
+                <div class="input-box">
+                    <p>Password </p>
+                    <input type="password" class="input-item" id="log_password" required>
+                </div>
+
+                <div class="input-btn">
+                    <input type="submit" class="submit_btn" id="login_btn" value="Login" required>
+                </div>
+            </form>
+        </section>
+
+        <section id="signup_side" class="form">
+            <form action="">
+                <div class="input-box">
+                    <p>Email ID </p>
+                    <input type="email" class="input-item" id="email" required>
+                </div>
+                <div class="input-box">
+                    <p>Password </p>
+                    <input type="password" class="input-item" id="password" required>
+                </div>
+                <div class="input-box">
+                    <p>Confirm Password </p>
+                    <input type="password" class="input-item" id="cpassword" required>
+                </div>
+
+                <div class="input-btn">
+                    <button type="submit" class="submit_btn" id="signup_btn" value="true">Signup</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</div>
 
 <div class="slider">
     <ul>
@@ -53,10 +104,214 @@
 
 
 <script>
+
     const collapse = document.querySelector('.collapse');
     const slider = document.querySelector('.slider')
-    
-    collapse.addEventListener('click', () =>{
+
+    collapse.addEventListener('click', () => {
         slider.classList.toggle('navbar_item_collapse');
     })
+
+
+    // login button js
+
+    const userCredit = document.querySelector('.login');
+    const signupLoginSection = document.querySelector('#signup_login');
+    const close = document.querySelector('#close');
+
+    userCredit.addEventListener('click', () => {
+        signupLoginSection.style.display = "flex";
+
+        let defaultButton = 'action_login';
+        const actionLogin = document.querySelector('#action_login');
+        const actionSignup = document.querySelector('#action_signup');
+        const loginSide = document.querySelector('#login_side');
+        const signupSide = document.querySelector('#signup_side');
+
+        formExec(defaultButton);
+
+
+        function formExec(defaultButton) {
+            if (defaultButton === "action_login") {
+                loginSide.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+
+                    const loginBtn = document.getElementById('login_btn');
+
+                    if (loginBtn) {
+                        const email = document.getElementById('log_email').value;
+                        const password = document.getElementById('log_password').value;
+
+                        console.log(email);
+                        if (!email || !password) {
+                            return;
+                        }
+
+                        let data = await fetch(`/user/login`, {
+                            method: "post",
+                            headers: {
+                                "Content-type": "application/json"
+                            },
+                            body: JSON.stringify({ email, password })
+                        });
+
+                        data = await data.json();
+                        if (data) {
+                            document.getElementById('email').value = ""
+                            document.getElementById('password').value = ""
+                            location.reload();
+                        }
+                    }
+                })
+            }
+            else if (defaultButton === "action_signup") {
+                signupSide.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+
+                    const signupBtn = document.getElementById('signup_btn');
+
+                    if (signupBtn) {
+                        const email = document.getElementById('email').value;
+                        const password = document.getElementById('password').value;
+                        const cpassword = document.getElementById('cpassword').value;
+
+                        console.log(email);
+                        if (!email || !password || !cpassword) {
+                            alert('please fill all fields.');
+                            return;
+                        }
+
+                        if (password !== cpassword) {
+                            alert("password and confirm password are not same");
+                            return;
+                        }
+
+                        // signup api call.
+
+                        let data = await fetch(`/user/signup`, {
+                            method: "post",
+                            headers: {
+                                "Content-type": "application/json"
+                            },
+                            body: JSON.stringify({ email, password })
+                        });
+
+                        data = await data.json();
+                        if (data) {
+                            document.getElementById('email').value = ""
+                            document.getElementById('password').value = ""
+                            document.getElementById('cpassword').value = "";
+                            location.reload();
+                        }
+
+                    }
+                });
+            }
+        }
+
+        actionLogin.addEventListener('click', () => {
+            signupSide.style.display = 'none';
+            loginSide.style.display = 'block';
+            actionLogin.style.backgroundColor = 'black';
+            actionSignup.style.backgroundColor = 'rgb(34, 177, 177)';
+
+            defaultButton = actionLogin.id;
+            formExec(defaultButton);
+            // Login form inputs.
+            // loginSide.addEventListener('submit', (e) =>{
+            //     e.preventDefault();
+
+            //     console.log("form submitted");
+
+            //     const email = document.getElementById('.log_email').value;
+            //     const password = document.getElementById('.log_password').value;
+            //     const loginBtn = document.getElementById('login_btn');
+
+            //     console.log(email);
+            //     // loginBtn.addEventListener('click', () =>{
+
+
+            //         // if(!email || !password){
+            //         //     return;
+            //         // }
+
+            //         // let data = await fetch(`/user/login`, {
+            //         //     method: "post",
+            //         //     headers: {
+            //         //         "Content-type": "application/json"
+            //         //     },
+            //         //     body: JSON.stringify({ email, password })
+            //         // });
+
+            //         // data = await data.json();
+            //         // if (data) {
+            //         //     document.getElementById('email').value = ""
+            //         //     document.getElementById('password').value = ""
+            //         //     location.reload();
+            //         // }
+            //     // })
+            // })
+        })
+
+        actionSignup.addEventListener('click', () => {
+            loginSide.style.display = 'none';
+            signupSide.style.display = 'block';
+            actionSignup.style.backgroundColor = 'black';
+            actionLogin.style.backgroundColor = 'rgb(34, 177, 177)';
+
+            defaultButton = actionSignup.id;
+            formExec(defaultButton);
+            // Signup form inputs.
+
+            // signupSide.addEventListener('submit', async (event) => {
+            //     event.preventDefault();
+
+            //     const signupBtn = document.getElementById('signup_btn');
+            //     // console.log(signupBtn.id);
+
+            //     if (signupBtn.value === 'true') {
+            //         const email = document.getElementById('email').value;
+            //         const password = document.getElementById('password').value;
+            //         const cpassword = document.getElementById('cpassword').value;
+            //         if (!email || !password || !cpassword) {
+            //             alert('please fill all fields.');
+            //             return;
+            //         }
+
+            //         if (password !== cpassword) {
+            //             alert("password and confirm password are not same");
+            //             return;
+            //         }
+
+            //         // signup api call.
+
+            //         let data = await fetch(`/user/signup`, {
+            //             method: "post",
+            //             headers: {
+            //                 "Content-type": "application/json"
+            //             },
+            //             body: JSON.stringify({ email, password })
+            //         });
+
+            //         data = await data.json();
+            //         if (data) {
+            //             document.getElementById('email').value = ""
+            //             document.getElementById('password').value = ""
+            //             document.getElementById('cpassword').value = "";
+            //             // location.reload();
+            //         }
+
+            //     }
+            // });
+        });
+
+
+    });
+
+    close.addEventListener('click', () => {
+        signupLoginSection.style.display = 'none';
+    });
+
+
+
 </script>

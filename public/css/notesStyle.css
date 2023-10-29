@@ -2,8 +2,8 @@
     margin-top: 1.5rem;
     display: grid;
     margin: 1.5rem;
-    gap: 1.5rem;
-    grid-template-columns: repeat(3, 1fr);
+    gap: 3.5rem;
+    grid-template-columns: repeat(4, 1fr);
 }
 
 
@@ -12,12 +12,13 @@
     font-size: 20px;
     box-shadow: 3px 4px 10px rgb(182, 131, 230);
     padding: 1.4rem;
-    height: 300px;
+    height: auto;
+    border-radius: 10px;
 }
 
 
 
-.reviews {
+/* .reviews {
     width: 50%;
     margin: 0 25%;
     margin-top: 1%;
@@ -60,7 +61,7 @@ textarea {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 18px;
     cursor: pointer;
-}
+} */
 
 @media (max-width: 50em) {
     .notes-grid {

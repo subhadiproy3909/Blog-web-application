@@ -5,11 +5,15 @@ const blogModel = require('../dbconn/schema_and_model');
 const notes =  require('../dbconn/notes');
 const path = require('path');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     const locals = {
         title: "Achieve's Institute | Home"
     }
-    res.render('index', { locals });
+
+    const blogData = await blogModel.find({}).limit(3);
+    const noteData = await notes.find({}).limit(3);
+
+    res.render('index', { locals, blogData, noteData });
 })
 
 const findData = async () =>{
@@ -26,6 +30,22 @@ router.get('/blog', async (req, res) => {
     res.render('blog', { locals, data })
 })
 
+router.get('/blog/:title', async (req, res) =>{
+    try {
+        const locals = {
+            title: req.params.title,
+        }
+
+        const data = await blogModel.findOne({title: req.params.title});
+
+        // console.log(data);
+
+        res.render('partials/blogDetailsView', {locals,data, layout: false});
+    } catch (err) {
+        console.error(`blog details error: ${err.message}`);
+    }
+})
+
 router.get('/notes', async (req, res) =>{
     const locals = {
         title: "Achiever's Institute | Notes"
@@ -33,19 +53,9 @@ router.get('/notes', async (req, res) =>{
 
     try{
 
-        const image = await notes.find(
-            {_id: "64dba1ab3c6107506bd7178a"}, {note_file: 1, _id: 0}
-        );
-        
-        let data=0;
-        image.forEach((e) =>{
-            data = e.note_file;
-        })
-        console.log(data);
-        // console.log(path.join(__dirname, '../uploads/'));
-        res.sendFile(path.join(__dirname, '../uploads/MAJOR PROJECT PRESENTATION.pptx'));
-        // res.send(path.join(__dirname, '../uploads/')+data+'.jpg');
-        // res.render('notes', {locals, data});
+        const data = await notes.find({});
+
+        res.render("notes", {locals, data})
     }
     catch(error){
         console.log(error);

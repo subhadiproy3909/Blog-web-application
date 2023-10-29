@@ -2,18 +2,102 @@
     <h2>Add New Blog</h2>
 </div>
 
-<div class="form m-3">
-    <form action="/admin/Dashboard/Blogs/createBlog" method="post">
-        <div class="mb-3">
-            <label for="title" class="form-label">Title</label>
-            <input type="text" class="form-control pt-2 pb-2" id="title" name="title" placeholder="Enter a title">
+<div class="form m-3 p-3" style="background-color: rgb(225, 225, 215);">
+    <form id="addNewBlog">
+        <div class="mb-3 d-flex gap-5 w-100">
+            <div class="w-100">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control pt-2 pb-2" id="title" placeholder="Enter a title" required>
+            </div>
+
+            <div class="w-100">
+                <label for="title" class="form-label">Author</label>
+                <input type="text" class="form-control pt-2 pb-2" id="author" placeholder="Enter a title" required>
+            </div>
         </div>
 
+        <div class="mb-3">
+            <label for="body" class="form-label">Description</label>
+            <textarea class="form-control" id="description" cols="30" rows="5" placeholder="Enter blog description" style="resize: none;" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="heading" class="form-label">Content Heading</label>
+            <input class="form-control" id="heading" placeholder="Provide blog heading"  required/>
+        </div>
         <div class="mb-3">
             <label for="body" class="form-label">Content</label>
-            <textarea class="form-control" id="body" cols="30" rows="10" name="body"></textarea>
+            <textarea class="form-control" id="body" cols="30" rows="10" placeholder="Enter blog content" style="resize: none;" required></textarea>
         </div>
 
-        <input type="submit" class="btn btn-success" value="Save" name="addBlog">
+        <div style="display: flex; justify-content: space-between;">
+            <input type="submit" class="btn btn-primary" value="Add Content" id="addContent">
+            <input type="submit" class="btn btn-success" value="Save" id="addBlog" >
+        </div>
     </form>
+
+    <div id="showContents">
+
+    </div>
 </div>
+
+<script>
+
+// /admin/Dashboard/Blogs/createBlog
+
+    const addNewBlog = document.getElementById('addNewBlog');
+    const addContent = document.getElementById('addContent');
+    const showContents = document.getElementById('showContents');
+    const addBlog = document.getElementById('addBlog');
+
+    const headings = new Array();
+    const contents = new Array();
+
+    let title; let author; let description;
+
+    addBlog.disabled = true;
+    addNewBlog.addEventListener('submit', (e) =>{
+        e.preventDefault();
+
+        title = document.getElementById('title').value;
+        author = document.getElementById('author').value;
+        description = document.getElementById('description').value;
+        const heading = document.getElementById('heading').value;
+        const body = document.getElementById('body').value;
+        
+        if(!title || !author || !heading || !body){
+            return;
+        }
+
+        if(addContent){
+            headings.push(heading);
+            contents.push(body);
+
+            document.getElementById('heading').value = "";
+            document.getElementById('body').value = "";
+
+            addBlog.disabled = false;
+        }
+    });
+
+    addBlog.addEventListener('click', () =>{
+        if(headings.length === 0 || contents.length === 0){
+            return;
+        }
+
+        console.log(headings);
+        const data = fetch('/admin/Dashboard/Blogs/createBlog', {
+            method: "post",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({title, author, description, headings, contents})
+        });
+
+        document.getElementById('title').value = "";
+        document.getElementById('author').value = "";
+        document.getElementById('description').value = "";
+        addBlog.disabled = true;
+    })
+
+</script>

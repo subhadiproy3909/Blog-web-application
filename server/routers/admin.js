@@ -1,7 +1,6 @@
 // BUILDIN MOUDLES.
-
-const express = require('express');
-const router = express.Router();
+const fs = require('fs');
+const router = require ('express').Router();
 const multer = require('multer');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken')
@@ -27,7 +26,8 @@ const authMiddleware = (req, res, next) =>{
     const token = req.cookies.token;
 
     if(!token){
-        return res.status(401).json({message: "Unauthorized"});
+        res.status(401).json({message: "Unauthorized"});
+        location.replace('admin/signup_signin')
     }
 
     try {
@@ -38,7 +38,6 @@ const authMiddleware = (req, res, next) =>{
         return res.status(401).json({message: "Unauthorized"});
     }
 }
-
 
 
 
@@ -99,7 +98,7 @@ router.post('/signup', async (req, res) => {
         )
 
         
-        if(uQuery == null){
+        if(uQuery === null){
             if(password === cpassword){
                 try {
                     const hasedPassword = await bcrypt.hash(password, 10);
@@ -128,7 +127,7 @@ router.post('/signup', async (req, res) => {
         }
         
     } catch (error) {
-        console.log("signupError:", error);
+        console.log("admin signupError:", error);
     }
 
 })
@@ -139,14 +138,17 @@ router.get('/admin/Dashboard/Blogs', authMiddleware, async (req, res) => {
     }
     try {
 
-        const findData = await blogModel.find({});
+        const token = req.cookies.token;
 
-        res.render('admin/blogs', { locals, findData, layout: adminLayout })
+            const findData = await blogModel.find({});
+    
+            res.render('admin/blogs', { locals, findData, token, layout: adminLayout })
     }
     catch (err) {
         console.log(err);
     }
 });
+
 
 router.get('/admin/Dashboard/Notes', authMiddleware, async (req, res) => {
     const locals = {
@@ -154,7 +156,7 @@ router.get('/admin/Dashboard/Notes', authMiddleware, async (req, res) => {
     }
     try {
         const findData = await note.find({});
-        res.render('admin/notes', { locals, findData, layout: adminLayout })
+        res.render('admin/notes', { locals, findData, layout: adminLayout})
     }
     catch (error) {
 
@@ -166,7 +168,7 @@ router.get('/admin/Dashboard/Notes', authMiddleware, async (req, res) => {
 * GET /
 * ADMIN - NEW BLOG PAGE.
 */
-router.get('/admin/Dashboard/Blogs/createBlog', async (req, res) => {
+router.get('/admin/Dashboard/Blogs/createBlog', authMiddleware,  async (req, res) => {
     try {
         const locals = {
             title: "Admin | Dashboard | Blogs | Add Blog"
@@ -179,6 +181,22 @@ router.get('/admin/Dashboard/Blogs/createBlog', async (req, res) => {
     }
 })
 
+router.get('/admin/Dashboard/Blogs/:title', authMiddleware, async (req, res) =>{
+    try {
+        const locals = {
+            title: req.params.title,
+        }
+
+        const data = await blogModel.findOne({title: req.params.title});
+
+        // console.log(data);
+
+        res.render('partials/blogDetailsView', {locals,data, layout: false});
+    } catch (err) {
+        console.error(`blog details error: ${err.message}`);
+    }
+})
+
 
 
 
@@ -186,18 +204,20 @@ router.get('/admin/Dashboard/Blogs/createBlog', async (req, res) => {
 * POST /
 * ADMIN - SAVE NEW BLOG.
 */
-router.post('/admin/Dashboard/Blogs/createBlog', async (req, res) => {
+router.post('/admin/Dashboard/Blogs/createBlog', authMiddleware, async (req, res) => {
     try {
 
         // console.log(req.body);
 
-        const reqBody = {
-            title: req.body.title,
-            body: req.body.body
-        }
+        const {title, author, description, headings, contents} = req.body;
+        console.log(headings);
 
-        await blogModel.create(reqBody);
-        res.redirect('/admin/Dashboard/Blogs/createBlog');
+        const data = await blogModel.create({title, author, description, headings, contents});
+
+        if(data){
+            res.status(200).json(data);
+        }
+        // res.redirect('/admin/Dashboard/Blogs/createBlog');
     }
     catch (error) {
         console.log(error);
@@ -210,7 +230,7 @@ router.post('/admin/Dashboard/Blogs/createBlog', async (req, res) => {
 * PUT /
 * ADMIN - UPDATE BLOG.
 */
-router.put('/admin/Dashboard/Blogs', async (req, res) => {
+router.put('/admin/Dashboard/Blogs', authMiddleware, async (req, res) => {
     try {
         // console.log(req.body);
 
@@ -235,7 +255,7 @@ router.put('/admin/Dashboard/Blogs', async (req, res) => {
 * GET /
 * ADMIN - NEW NOTE PAGE.
 */
-router.get('/admin/Dashboard/Notes/createNote', async (req, res) => {
+router.get('/admin/Dashboard/Notes/createNote', authMiddleware, async (req, res) => {
     try {
         const locals = {
             title: "Admin | Dashboard | Notes | Add Note"
@@ -255,34 +275,56 @@ router.get('/admin/Dashboard/Notes/createNote', async (req, res) => {
 * POST /
 * ADMIN - SAVE NEW NOTE.
 */
-const upload = multer({
+
+// const uploadFile = multer({
+//     storage:multer.diskStorage({
+//         destination:function(req, file, cb){
+//             cb(null, "./public/uploads/noteFiles");
+//         },
+//         filename:function(req, file, cb){
+//             // const ext = file.originalname.split('.')[1];
+//             // const filename = file.originalname.split('.')[0];
+//             cb(null, `${file.originalname}`);
+//         }
+//     })
+// }).single("note_file");
+
+const uploads = multer({
     storage:multer.diskStorage({
         destination:function(req, file, cb){
-            cb(null, "uploads");
+            if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png'){
+                cb(null, "./public/uploads/images");
+            }
+            else{
+                cb(null, "./public/uploads/noteFiles")
+            }
         },
         filename:function(req, file, cb){
-            const ext = file.originalname.split('.')[1];
-            const filename = file.originalname.split('.')[0];
-            cb(null, `${filename}.${ext}`);
+            // const ext = file.originalname.split('.')[1];
+            // const filename = file.originalname.split('.')[0];
+            cb(null, `${file.originalname}`);
         }
     })
-}).single("note_file");
+}).fields([{name: "note_image"}, {name: "note_file"}],);
 
-// const upload = multer({ dest: 'uploads' }, )
-router.post('/admin/Dashboard/Notes/createNote', upload, async (req, res) => {
-    
+// const upload = multer({ dest: 'uploads/' }, )
+router.post('/admin/Dashboard/Notes/createNote', authMiddleware, uploads, async (req, res) => {
     try {
+
+        // console.log(req.files.note_file[0].originalname);
+
         const uploadData = new note({
             title: req.body.title,
-            note_file: req.file.originalname.split('.')[0]
+            note_image: req.files.note_image[0].originalname,
+            note_file: req.files.note_file[0].originalname,
         })
         
         await uploadData.save();
-        // res.send(req.file);
+
         res.redirect('/admin/Dashboard/Notes/createNote');
         
     } catch (error) {
-        console.log(error);
+        console.log(`create note error : ${error.message}`);
     }
 
 })

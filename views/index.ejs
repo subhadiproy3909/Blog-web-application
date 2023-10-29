@@ -11,6 +11,61 @@
     </div>
 </div>
 
+
+<div class="few_blog">
+    <h3 style="font-size: 20px;">Recent Blogs</h3>
+    <br>
+    <div class="homepage_blogContent">
+        <% blogData.forEach(post=> { %>
+        
+        
+        
+            <ul style="display: flex; flex-direction: column;">
+                <p style="opacity: .6; font-size: 12px;">
+                    Released date: <%= post.updatedAt.toDateString() %>
+                </p>
+                <h1 style="margin-top: .9rem; margin-bottom: .6rem;">
+                    <a style="text-decoration: none; font-size: 27px;" href="/blog/<%= post.title %>" target="_blank">
+                        <%= post.title %>
+                    </a>
+                </h1>
+                <article>
+                    <%= post.description.slice(0, 90) %> ...
+                </article>
+        
+                <div class="read_more" style="margin-top: auto; margin-left: auto;">
+                    <a href="/blog/<%= post.title %>" style="text-decoration: none;" target="_blank">Read More>></a>
+                </div>
+            </ul>
+        
+        <% }) %>
+    
+    </div>
+</div>
+
+
+<div class="few_note">
+    <h3 style="font-size: 20px;">Recent Notes</h3>
+    <br>
+
+    <main class="notes-grid">
+
+        <% noteData.forEach(post => { %>
+            <div class="note" style="display: flex; flex-direction: column; align-items: center; height: auto;">
+                <img src="/uploads/images/<%= post.note_image %>" alt="" style="width: 120px; height: 120px; border-radius: 50%;">
+                <b style="margin: .6rem 0; font-size: 20px; font-weight: 300;"><%= post.title %></b>
+                <p style="margin: .2rem 0 1rem 0; font-size: 15px; color: rgb(104, 104, 102);">Download Note Here</p>
+
+                <a href="/uploads/noteFiles/<%= post.note_file %>"
+                    style="padding: .5rem; margin-top: auto; background-color: rgb(123, 53, 188); color: #fff; text-decoration: none; padding: 1rem 2rem; border-radius: 30px;">
+                    Download
+                </a>
+            </div>
+        <% }) %>
+        <div class="note">1. Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis, totam?</div>
+    </main>
+</div>
+
 <section class="note_section">
 
 </section>

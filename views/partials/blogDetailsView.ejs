@@ -1,0 +1,34 @@
+<div style="margin: 2.5rem; padding: 1.2rem; background-color: rgb(238, 238, 234);">
+    <h1 style="text-align: center; font-size: 40px; margin-bottom: 0;">
+        <%= data.title %>
+    </h1>
+
+    <div style="text-align: center; display: flex; justify-content: center; gap: 1rem;">
+        <p>
+            <%= data.author %>
+        </p>
+        <p>.</p>
+        <p>
+            <%= data.updatedAt.toDateString() %>
+        </p>
+    </div>
+
+    <p style="font-weight: 500; font-family:Georgia, 'Times New Roman', Times, serif;">
+        <%= data.description %>
+    </p>
+
+    <div style="display: flex; flex-direction: column; margin-top: .8rem;">
+
+        <% for (let index=0; index < data.headings.length && data.contents.length; index++) { %>
+            <h2 style="font-size: 30px;">
+                <%= data.headings[index] %>
+            </h2>
+
+            <p
+                style="font-size: 18px; font-weight: 500; font-family:Georgia, 'Times New Roman', Times, serif; margin: 0; padding-left: .5rem; padding-bottom: 1rem;">
+                <%= data.contents[index] %>
+            </p>
+            <% } %>
+    </div>
+
+</div>
